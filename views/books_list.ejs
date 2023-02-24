@@ -3,8 +3,10 @@
 <head>
     <title>Books</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="all_content">
+<div class="content">
 <%- include('components/navigation') %>
 <h1>Books</h1>
 <div>
@@ -37,10 +39,15 @@
 <form action="/books/add" method="get">
     <button type="submit" id="add_book">Add</button>
 </form>
-    <div>
+    <ul class="book_list">
         <% books.forEach(function(book) { %>
-          <%-include('components/book', {book:book});%>
+            <li class="book_element">
+                <div>
+                <%-include('components/book', {book:book});%>
+                </div>
+            </li>
         <%}) %>
-    </div>
+    </ul>
+</div>
 </body>
 <html>

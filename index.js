@@ -18,6 +18,9 @@ mysql.createLightBookTable();
 app.use(express.json())
     .use(express.urlencoded({ extended: false }));
 
+app.use(express.static('public'));
+app.use('/css', express.static(__dirname + 'public/css'));
+
 app.use('/about', about())
     .use('/books', books())
     .use('/places', places())

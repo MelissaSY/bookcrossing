@@ -25,8 +25,7 @@ const sortBooks=(selectedSorting) => {
 const filterBooks=(selectedFilter, filterValue)=> {
     let filtered = [];
     for(let i =0; i < books.length;i++) {
-        console.log(selectedFilter);
-        if(books[i][selectedFilter].includes(filterValue)) {
+        if(books[i][selectedFilter].toLowerCase().includes(filterValue.toLowerCase())) {
             filtered.push(books[i]);
         }
     }

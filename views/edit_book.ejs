@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title><%=book.title %></title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<%- include('components/navigation') %>
-<form method="post" action="/books/edit">
-    <div>
-        <input type="text" id="bookId" name="id" value="<%=book.id%>" hidden>
-        <input type="text" id="bookTitle" name="title" value="<%=book.title%>">
-        <input type="text" id="bookAuthor" name="author" value="<%=book.author%>">
-        <input type="text" id="bookGenres" name="genres" value="<%=book.genres%>">
-        <input type="text" id="bookIsbn" name="isbn" value="<%=book.isbn%>">
+<div class="content">
+    <%- include('components/navigation') %>
+    <div class="book_edit_container">
+        <div class="book_image_selection">
+            <div class="book_image"></div>
+            <div>
+                <form method="post" action="/books/upload" enctype="multipart/form-data">
+                    <label class="input_image_label">
+                        <input type="file" name="book_image" accept="image/png, image/jpeg">
+                        <span>Choose book image</span>
+                    </label>
+                </form>
+            </div>
+        </div>
+    <div class="book_info">
+        <form method="post" action="/books/edit">
+            <input type="text" id="bookId" name="id" value="<%=book.id%>" hidden>
+            <input type="text" class="book_edit_field" placeholder="title" id="bookTitle" name="title" value="<%=book.title%>">
+            <input type="text" class="book_edit_field" placeholder="author" id="bookAuthor" name="author" value="<%=book.author%>">
+            <input type="text" class="book_edit_field" placeholder="genres" id="bookGenres" name="genres" value="<%=book.genres%>">
+            <input type="text" class="book_edit_field" placeholder="ISBN"  id="bookIsbn" name="isbn" value="<%=book.isbn%>">
+            <button type="submit">Save</button>
+        </form>
     </div>
-    <div>
-        <button type="submit">Save</button>
     </div>
-</form>
-
+</div>
 </body>
 <html>
