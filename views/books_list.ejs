@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Books</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<%- include('components/navigation') %>
+<h1>Books</h1>
+<div>
+    <form action="/books" method="get">
+        <select name="sorting" id="sorting">
+            <%if(sorting){%>
+            <option value="<%=sorting%>" selected hidden>By <%=sorting%></option>
+            <%}%>
+            <option value="default">By default</option>
+            <option value="id">By id</option>
+            <option value="title">By title</option>
+            <option value="author">By author</option>
+            <option value="genres">By genres</option>
+            <option value="isbn">By isbn</option>
+        </select>
+        <select name="filter" id="filter">
+            <%if(filter){%>
+            <option value="<%=filter%>" selected hidden><%=filter%></option>
+            <%}%>
+            <option value="all">all</option>
+            <option value="title">title</option>
+            <option value="author">author</option>
+            <option value="genres">genres</option>
+            <option value="isbn">isbn</option>
+        </select>
+        <input type="search" name="search_query" placeholder="Search book" value="<%=searched%>">
+        <input type="submit" value="Search">
+    </form>
+</div>
+<form action="/books/add" method="get">
+    <button type="submit" id="add_book">Add</button>
+</form>
+    <div>
+        <% books.forEach(function(book) { %>
+          <%-include('components/book', {book:book});%>
+        <%}) %>
+    </div>
+</body>
+<html>

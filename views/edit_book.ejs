@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%=book.title %></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<%- include('components/navigation') %>
+<form method="post" action="/books/edit">
+    <div>
+        <input type="text" id="bookId" name="id" value="<%=book.id%>" hidden>
+        <input type="text" id="bookTitle" name="title" value="<%=book.title%>">
+        <input type="text" id="bookAuthor" name="author" value="<%=book.author%>">
+        <input type="text" id="bookGenres" name="genres" value="<%=book.genres%>">
+        <input type="text" id="bookIsbn" name="isbn" value="<%=book.isbn%>">
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+</body>
+<html>

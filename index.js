@@ -1,4 +1,6 @@
 'use strict';
+
+const mysql = require('./storage_managment/mysql_manager');
 const express = require('express');
 const about = require('./middleware/about_bookcrossing');
 const books = require('./middleware/books');
@@ -9,6 +11,12 @@ const main_page = require('./middleware/main_page');
 const app = express();
 
 app.set('view engine', 'ejs');
+
+mysql.createDB('books');
+mysql.createLightBookTable();
+
+app.use(express.json())
+    .use(express.urlencoded({ extended: false }));
 
 app.use('/about', about())
     .use('/books', books())

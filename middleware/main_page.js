@@ -7,7 +7,7 @@ module.exports = function (options = {}) {
     router.get('',(req, res, next) => {
         res.render(
             'main_page', {
-                title: 'Book-crossingꚎ̆'
+                title: 'Book-crossing'
             }
         );
     });
