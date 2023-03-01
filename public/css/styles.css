@@ -1,8 +1,10 @@
 * {
     box-sizing: border-box;
+    font-family: "Century Gothic", sans-serif;
+    font-size: medium;
 }
-
-h1 {
+/*Algerian is a pretty font*/
+.book_title, .book_author {
     color: #861111;
 }
 
@@ -10,15 +12,68 @@ html {
     height: 100%;
 }
 
-body {
-    background: #861111;
-    height: 100%;
-    margin: 20px;
+header {
+    display: block;
 }
-.content {
-    padding: 20px;
-    background: #FFF1F1;
+
+body {
+    margin: 0;
     height: 100%;
+    background: #FFF1F1;
+}
+
+header nav {
+    height: 70px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    padding-left: 0;
+    margin-left: 0;
+    background-color: #861111;
+
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navigation li {
+    display: inline-block;
+    height: 100%;
+}
+
+.navigation li a {
+    display: inline-block;
+    color: #FFF1F1;
+    text-align: center;
+    padding: 25px;
+    text-decoration: none;
+    height: 100%;
+}
+
+.navigation li a:hover {
+    background-color: #FFF1F1;
+    color: #861111;
+}
+
+h1, h2, h3 {
+    text-decoration: #861111;
+    color: #861111;
+}
+h1 {
+    font-size: 24px;
+}
+
+.content {
+    border-width: 30px;
+    border-style: solid;
+    border-color: transparent;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 ul {
@@ -31,6 +86,15 @@ a {
     text-decoration: none;
     color: #861111;
     transition: 0.3s;
+}
+
+.book_title:hover{
+    text-decoration: underline;
+}
+
+.book_info {
+    display: flex;
+    flex-direction: column;
 }
 
 .book_edit_field{
@@ -59,56 +123,65 @@ a {
 
 .book_element {
     float: left;
-    width: calc((100%/3 - 20px));
+    width: 500px;
+    height: 300px;
     margin-right: 20px;
     margin-bottom: 30px;
     border: 1px solid #E78888;
+    display: flex;
+    flex-direction: row;
+}
+
+.book_list_image {
+    height: 300px;
+    width: 200px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: hidden
+}
+
+.book_list_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #861111;
 }
 
 button,
 input[type=submit],
-input[type=file] {
+input[type=file],
+.input_image_label
+{
     cursor: pointer;
     background: #861111;
     color: #FFF1F1;
     transition: 0.3s;
 }
 
+button, input[type=submit], input[type=file], .input_image_label {
+    border: 1px solid #861111;
+}
+
+
 button:hover,
 input[type=submit]:hover,
 input[type=file]:hover,
-a:hover {
-    opacity: 0.55;
+.input_image_label:hover
+{
+    background: #FFF1F1;
+    color: #861111;
 }
 
-input[type=text], input[type=search], input[type=submit], select, button {
+input[type=text], input[type=search], select {
     border: 0;
+}
+
+input[type=text], input[type=search], input[type=submit], select, button, .input_image_label {
     padding: 10px;
 }
 input[type=search] {
     width: 40%;
-}
-
-input[type=file] {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-}
-
-.input_image_label {
-
-    display: inline-block;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    background: #861111;
-    color: #FFF1F1;
-
-    line-height: 22px;
-    height: 40px;
-    padding: 10px 20px;
-
-    box-sizing: border-box;
 }
 
 select {
@@ -118,4 +191,10 @@ select {
 #add_book {
     margin-bottom: 20px;
     margin-top: 20px;
+}
+
+.book_edit_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

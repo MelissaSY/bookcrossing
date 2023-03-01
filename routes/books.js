@@ -16,12 +16,15 @@ module.exports = function (options = {}) {
     });
     router.get('/edit', (req, res, next) => {
         libraryController.editBook(req, res);
-    });
+    });/*
     router.get('/add', (req, res, next) => {
-        libraryController.addBook(req, res);
-    });
+        libraryController.editBook(req, res);
+    });*/
     router.post('/delete', (req, res, next) =>{
         libraryController.deleteBook(req, res);
+    });
+    router.post('/upload', (req, res, next)=>{
+       bookController.saveImage(req, res);
     });
     return router;
 };

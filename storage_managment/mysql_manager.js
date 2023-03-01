@@ -34,7 +34,8 @@ const createLightBookTable=()=>{
             return console.error("show tables", err.message);
         }
         if(result.length === 0) {
-            sql = `CREATE TABLE light_book (id_book INT PRIMARY KEY, title VARCHAR(255), author LONGTEXT, isbn VARCHAR(13), annotation LONGTEXT, genres LONGTEXT)`;
+            sql = `CREATE TABLE light_book (id_book INT PRIMARY KEY, title VARCHAR(255), author LONGTEXT, 
+isbn VARCHAR(13), annotation LONGTEXT, genres LONGTEXT, has_image BOOLEAN, filepath MEDIUMTEXT)`;
             connection.query(sql, function (err, result) {
 
                 if (err) {
@@ -45,7 +46,8 @@ const createLightBookTable=()=>{
     });
 };
 const addLightBook=(book)=>{
-    let sql=`INSERT INTO light_book(id_book, title, author, isbn, annotation, genres) VALUES (${book.id}, '${book.title}', '${book.author}', '${book.isbn}', '${book.annotation}', '${book.genres}')`;
+    let sql=`INSERT INTO light_book(id_book, title, author, isbn, annotation, genres, has_image, filepath)
+ VALUES (${book.id}, '${book.title}', '${book.author}', '${book.isbn}', '${book.annotation}', '${book.genres}', ${book.hasimage}, '${book.filepath}')`;
     connection.query(sql, function (err, result) {
       if (err) {
             return console.error(err.message);
@@ -61,13 +63,29 @@ const deleteLightBook=(id)=> {
     });
 };
 const editLightBook=(id, book)=>{
-    let sql =`UPDATE light_book SET title = '${book.title}', author = '${book.author}', isbn = '${book.isbn}', annotation = '${book.annotation}', genres = '${book.genres}' WHERE id_book = ${id}`;
+    let sql =`UPDATE light_book SET title = '${book.title}', author = '${book.author}', isbn = '${book.isbn}', annotation = '${book.annotation}', genres = '${book.genres}',
+    has_image = ${book.hasimage}, filepath = '${book.filepath}' WHERE id_book = ${id}`;
     connection.query(sql, function (err, result) {
         if (err) {
             return console.error(err.message);
         }
     });
 };
+
+const updateOrAddLightBook=(book)=> {
+    let sql =`SELECT * FROM light_book  WHERE id_book = ${book.id}`;
+    connection.query(sql, function (err, result) {
+        if (err) {
+            return console.error(err.message);
+        }
+        if(result.length > 0) {
+            editLightBook(book.id, book);
+        } else {
+            addLightBook(book);
+        }
+    });
+};
+
 const getAllLightBooks=(callback)=> {
     let sql = 'SELECT * FROM light_book';
     connection.query(sql, function (err, result) {
@@ -146,5 +164,5 @@ const addAuthor=(author)=> {
 };
 
 module.exports = {createDB, createTables, createTransTables, createLightBookTable, addLightBook,
-    deleteLightBook, editLightBook, getAllLightBooks};
+    deleteLightBook, updateOrAddLightBook, editLightBook, getAllLightBooks};
 

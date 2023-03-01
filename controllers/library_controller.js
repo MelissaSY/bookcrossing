@@ -1,6 +1,7 @@
 'use strict';
 
 const library = require('../entities/library');
+const {temporaryEdit} = require("../entities/library");
 
 const getBooks = (req, res) => {
     library.getAllBooks(function (books) {
@@ -27,24 +28,21 @@ const getBooks = (req, res) => {
         }
     });
 };
-
-const addBook=(req, res)=> {
-    let book = library.createEmptyBook();
-    res.render('edit_book', {
-        book: book,
-    });
-};
-
 const deleteBook=(req, res)=> {
     library.deleteBook(library.searchBookById(parseInt(req.body.id)));
     res.redirect('/books');
 };
 
 const editBook=(req, res) => {
-    let book = library.searchBookById(parseInt(req.query.id));
+    let book;
+    if(req.query.id === undefined) {
+        book = library.createNoAdd();
+    } else {
+        book = library.searchBookById(parseInt(req.query.id));
+    }
     res.render('edit_book', {
         book: book,
     });
 };
 
-module.exports = {getBooks, addBook, deleteBook, editBook};
+module.exports = {getBooks, deleteBook, editBook};

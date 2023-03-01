@@ -7,30 +7,32 @@
 </head>
 <body>
 <div class="content">
-    <%- include('components/navigation') %>
-    <div class="book_edit_container">
-        <div class="book_image_selection">
-            <div class="book_image"></div>
-            <div>
-                <form method="post" action="/books/upload" enctype="multipart/form-data">
-                    <label class="input_image_label">
-                        <input type="file" name="book_image" accept="image/png, image/jpeg">
-                        <span>Choose book image</span>
-                    </label>
-                </form>
+            <div class="book_edit_container">
+                <div class="book_image_selection">
+                    <%-include('partials/book_image', {book:book});%>
+                    <div>
+                        <form enctype="multipart/form-data" method="post" action="/books/edit">
+                            <input type="text" id="bookId" name="id" value="<%=book.id%>" hidden />
+                            <label class="input_image_label">
+                                <span>Choose image</span>
+                                <input type="file" name="book_image" accept="image/png, image/jpeg" hidden/>
+                            </label>
+                            <button type="submit" name="upload_image" value="upload">Apply image</button>
+
+                            <%if(book.hasimage) {%>
+                                <button type="submit" name="delete_image" value="delete">Delete image</button>
+                            <%}%>
+
+                            <input type="text" class="book_edit_field" placeholder="title" id="bookTitle" name="title" value="<%=book.title%>" />
+                            <input type="text" class="book_edit_field" placeholder="author" id="bookAuthor" name="author" value="<%=book.author%>" />
+                            <input type="text" class="book_edit_field" placeholder="genres" id="bookGenres" name="genres" value="<%=book.genres%>" />
+                            <input type="text" class="book_edit_field" placeholder="ISBN"  id="bookIsbn" name="isbn" value="<%=book.isbn%>" />
+
+                            <button type="submit" name="save_changes" value="Save">Save</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    <div class="book_info">
-        <form method="post" action="/books/edit">
-            <input type="text" id="bookId" name="id" value="<%=book.id%>" hidden>
-            <input type="text" class="book_edit_field" placeholder="title" id="bookTitle" name="title" value="<%=book.title%>">
-            <input type="text" class="book_edit_field" placeholder="author" id="bookAuthor" name="author" value="<%=book.author%>">
-            <input type="text" class="book_edit_field" placeholder="genres" id="bookGenres" name="genres" value="<%=book.genres%>">
-            <input type="text" class="book_edit_field" placeholder="ISBN"  id="bookIsbn" name="isbn" value="<%=book.isbn%>">
-            <button type="submit">Save</button>
-        </form>
     </div>
-    </div>
-</div>
 </body>
 <html>

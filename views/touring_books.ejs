@@ -10,7 +10,7 @@
 <div class="content">
 <h1>Books</h1>
 <div>
-    <form action="/books" method="get">
+    <form action="/touring_books" method="get">
         <select name="sorting" id="sorting">
             <%if(sorting){%>
             <option value="<%=sorting%>" selected hidden>By <%=sorting%></option>
@@ -36,14 +36,14 @@
         <input type="submit" value="Search">
     </form>
 </div>
-<form action="/books/edit" method="get">
+<form action="/touring_books/edit" method="get">
     <button type="submit" id="add_book">Add</button>
 </form>
     <ul class="book_list">
         <% books.forEach(function(book) { %>
             <li class="book_element">
-                <%-include('partials/book_image', {book:book});%>
-                <%-include('partials/book', {book:book});%>
+               <!-- <%-include('partials/book_image', {book:book});%>
+                <%-include('partials/book', {book:book});%>-->
             </li>
         <%}) %>
     </ul>

@@ -1,10 +1,10 @@
 <div class="book">
-    <a href="books/edit?id=<%=book.id%>">
         <div class="book_container">
-            <h1 class="book_title"><%= book.title%></h1>
+            <a href="books/edit?id=<%=book.id%>">
+                <h1 class="book_title"><%= book.title%></h1>
+            </a>
             <h3 class="book_author">author: <%= book.author%></h3>
         </div>
-    </a>
     <form action="/books/delete" method="post" class="book_delete">
         <input type="text" value="<%= book.id%>" name="id" hidden>
         <button type="submit">Delete</button>
