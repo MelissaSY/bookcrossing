@@ -8,7 +8,7 @@ const bookController = require("../controllers/book_controller");
 module.exports = function (options = {}) {
     const router = express.Router();
 
-    router.get('',(req, res, next) => {
+    router.get('/',(req, res, next) => {
         libraryController.getBooks(req, res);
     });
     router.post('/edit', (req, res, next) => {

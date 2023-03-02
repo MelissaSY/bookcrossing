@@ -6,5 +6,5 @@ class Author {
         this.pseudonym = pseudonym;
         this.patronymic = patronymic;
     }
-
 }
+module.exports = Author;

@@ -1,7 +1,7 @@
 class Light_book {
-    constructor(id, title, author='', genre='',  isbn='', annotation ='', filepath='', hasImage = false) {
+    constructor(id, title, genre='',  isbn='', annotation ='', filepath='', hasImage = false, authors=[]) {
         this.title = title;
-        this.author = author;
+        this.authors = authors;
         this.isbn = isbn;
         this.id = id;
         this.annotation = annotation;

@@ -3,10 +3,12 @@
             <a href="books/edit?id=<%=book.id%>">
                 <h1 class="book_title"><%= book.title%></h1>
             </a>
-            <h3 class="book_author">author: <%= book.author%></h3>
         </div>
     <form action="/books/delete" method="post" class="book_delete">
         <input type="text" value="<%= book.id%>" name="id" hidden>
         <button type="submit">Delete</button>
+        <a href="books/edit?id=<%=book.id%>" class="edit_element">
+            Edit
+        </a>
     </form>
 </div>

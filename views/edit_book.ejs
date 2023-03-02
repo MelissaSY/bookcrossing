@@ -7,32 +7,43 @@
 </head>
 <body>
 <div class="content">
-            <div class="book_edit_container">
-                <div class="book_image_selection">
-                    <%-include('partials/book_image', {book:book});%>
-                    <div>
-                        <form enctype="multipart/form-data" method="post" action="/books/edit">
-                            <input type="text" id="bookId" name="id" value="<%=book.id%>" hidden />
-                            <label class="input_image_label">
-                                <span>Choose image</span>
-                                <input type="file" name="book_image" accept="image/png, image/jpeg" hidden/>
-                            </label>
-                            <button type="submit" name="upload_image" value="upload">Apply image</button>
-
+        <div class="book_edit_container">
+            <h1>Edit Information</h1>
+            <div class="book_image_selection">
+                <%-include('partials/book_image', {book:book});%>                    
+                <form enctype="multipart/form-data" method="post" action="/books/edit">
+                <div class="image_actions">
+                <input type="text" id="bookId" name="id" value="<%=book.id%>" hidden />
+                        <label class="input_image_label">
+                            <span>Choose image</span>
+                          <input type="file" name="book_image" accept="image/png, image/jpeg" hidden/>                            
+                        </label>
+                        <button type="submit" name="upload_image" value="upload">Apply image</button>
                             <%if(book.hasimage) {%>
                                 <button type="submit" name="delete_image" value="delete">Delete image</button>
                             <%}%>
-
-                            <input type="text" class="book_edit_field" placeholder="title" id="bookTitle" name="title" value="<%=book.title%>" />
-                            <input type="text" class="book_edit_field" placeholder="author" id="bookAuthor" name="author" value="<%=book.author%>" />
-                            <input type="text" class="book_edit_field" placeholder="genres" id="bookGenres" name="genres" value="<%=book.genres%>" />
-                            <input type="text" class="book_edit_field" placeholder="ISBN"  id="bookIsbn" name="isbn" value="<%=book.isbn%>" />
-
-                            <button type="submit" name="save_changes" value="Save">Save</button>
+                            </div>
+                            <div class="book_text_info">
+                                <input type="text" value="<%=author_selected%>" class="book_edit_field" list="authors_datalist" name="author" placeholder="Author">
+                                <datalist id="authors_datalist">
+                                <%for(let i =0; i < authors.length; i++) {%>
+                                    <option value="<%=authors[i].pseudonym%>"></option>
+                                <%}%>
+                                </datalist>
+                                <input type="text" class="book_edit_field" placeholder="title" id="bookTitle" name="title" value="<%=book.title%>" />
+                                <input type="text" class="book_edit_field" placeholder="genres" id="bookGenres" name="genres" value="<%=book.genres%>" />
+                                <input type="text" class="book_edit_field" placeholder="ISBN"  id="bookIsbn" name="isbn" value="<%=book.isbn%>" />
+                                <button type="submit" name="save_changes" value="Save">Save</button>
+                            </div>
                         </form>
                     </div>
-                </div>
             </div>
-    </div>
-</body>
+        </div>
+        <script>
+            document.querySelector('.select-field').addEventListener('click', () => {
+                document.querySelector('.authors_list').classList.toggle('show');
+                document.querySelector('.down-arrow').classList.toggle('rotate180');
+            });
+        </script>
+    </body>
 <html>
