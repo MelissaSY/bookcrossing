@@ -1,0 +1,16 @@
+<div class="author">
+        <div class="author_container">
+            <a href="books?filter=authors&search_query=<%=author.pseudonym%>">
+                <h1 class="author_pseudonym"><%= author.pseudonym%></h1>
+            </a>
+            <h3 class="author_field">Name: <%= author.name%></h3>
+            <h3 class="author_field">Surname: <%= author.surname%></h3>
+        </div>
+    <form action="/authors/delete" method="post" class="author_delete">
+        <input type="text" value="<%=author.id%>" name="id" hidden>
+        <button type="submit" name="delete">Delete</button>
+        <a href="authors/edit?id=<%=author.id%>" class="edit_element">
+            Edit
+        </a>
+    </form>
+</div>

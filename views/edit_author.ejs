@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%=author.title %></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="content">
+    <div class="author_edit_container">
+        <h1>Edit Information</h1>
+        <form method="post" action="/authors/edit">
+            <div class="author_edit">
+                <input type="text" id="authorId" name="id" value="<%=author.id%>" hidden />
+                <input type="text" class="author_edit_field" placeholder="Name" id="authorName" name="name" value="<%=author.name%>" />
+                <input type="text" class="author_edit_field" placeholder="Surname" id="authorSurname" name="surname" value="<%=author.surname%>" />                    
+                <input type="text" class="author_edit_field" placeholder="Pseudonym" id="authorPseudonym" name="pseudonym" value="<%=author.pseudonym%>" />                <input type="text" class="author_edit_field" placeholder="Patronimyc"  id="authorPatronimyc" name="patronimyc" value="<%=author.patronimyc%>" />
+                <button type="submit" name="save_changes" value="Save">Save</button>     
+            </div>               
+        </form>
+    </div>
+</div>
+</body>
+<html>
