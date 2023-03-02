@@ -7,7 +7,6 @@ let Author = require("./author.js");
 let books = [];
 let authors = [];
 
-
 const createNoAddBook=()=>{
     let id = getNextIdBook();
     let book = new Book(id, '', '');
@@ -48,12 +47,9 @@ const sortAuthors=(selectedSorting) => {
 
 const filterBooks=(selectedFilter, filterValue)=> {
     let filtered = [];
-    for(let i = 0; i < books.length;i++) {
-        let authors = books[i][selectedFilter];
-        for(let author of authors) {
-            if(author.toLowerCase().includes(filterValue.toLowerCase())) {
-                filtered.push(books[i]);
-            }
+    for(let i =0; i < books.length;i++) {
+        if(books[i][selectedFilter].toLowerCase().includes(filterValue.toLowerCase())) {
+            filtered.push(books[i]);
         }
     }
     return filtered;
@@ -193,14 +189,16 @@ const getNextIdAuthor = () => {
 
 const editBookInfo=(book)=> {
     temporaryEditBook(book);
-    mysql.deleteAuthorBookBookConnection(book.id);
-    mysql.updateOrAddLightBook(book, function() {
-        for(let pseudonym of book.authors) {
-           let author = searchAuthorByPseudonym(pseudonym);
-           if(author !== null) {
-            mysql.createAuthorBookConnection(author.id, book.id);
-           }
-        }
+    mysql.deleteAuthorBookBookConnection(book.id, function() {
+        mysql.updateOrAddLightBook(book, function() {
+            for(let pseudonym of book.authors) {
+                mysql.getAuthorByPseudonym(pseudonym, function(result) {    
+                    if(result !== null) {
+                      mysql.createAuthorBookConnection(result[0].id_author, book.id);
+                    }
+                });
+            }
+        });
     });
 };
 
@@ -224,17 +222,19 @@ const deleteBook=(book)=> {
 };
 
 const deleteAuthor = (author) => {
-    let deleted = false;
-    let i = 0;
-    while(i < authors.length && authors[i].id !== author.id) {
-        i++;
-    }
-    if(i < authors.length) {
-        authors.splice(i, 1);
-        mysql.deleteAuthor(author.id);
-        deleted = true;
-    }
-    return deleted;
+    mysql.getBookAuthorByAuthor(author.id,
+        function(result) {
+        if(result.length === 0) {
+            let i = 0;
+            while(i < authors.length && authors[i].id !== author.id) {
+                i++;
+            }
+            if(i < authors.length) {
+                authors.splice(i, 1);
+                mysql.deleteAuthor(author.id);
+            }
+        }
+    });
 };
 
 const temporaryEditBook=(book)=> {

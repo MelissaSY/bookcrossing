@@ -121,13 +121,14 @@ const deleteAuthorBookAuthorConnection = (authorId) => {
     });
 };
 
-const deleteAuthorBookBookConnection = (bookId) => {
+const deleteAuthorBookBookConnection = (bookId, callback) => {
     let sql =`DELETE FROM book_author WHERE id_book = ${bookId}`;
     connection.query(sql, function (err, result) {
         if (err) {
             return console.error(err.message);
         }
     });
+    callback();
 };
 
 
@@ -143,6 +144,16 @@ const getBookAuthors=(bookId, callback) => {
 
 const getBookAuthorConnections=(callback) => {
     let sql = `SELECT * FROM book_author`;
+    connection.query(sql, function (err, result) {
+        if (err) {
+            return console.error(err.message);
+        }
+        return callback(result);
+    });
+};
+
+const getBookAuthorByAuthor = (authorId, callback) => {
+    let sql = `SELECT * FROM book_author WHERE id_author = ${authorId}`;
     connection.query(sql, function (err, result) {
         if (err) {
             return console.error(err.message);
@@ -206,11 +217,11 @@ const updateOrAddAuthor=(author)=> {
 
 const updateOrAddLightBook=(book, callback)=> {
     let sql =`SELECT * FROM light_book  WHERE id_book = ${book.id}`;
-    connection.query(sql, function (err, result) {
+    connection.query(sql, function (err, res) {
         if (err) {
             return console.error(err.message);
         }
-        if(result.length > 0) {
+        if(res.length > 0) {
             editLightBook(book.id, book);
         } else {
             addLightBook(book);
@@ -231,7 +242,18 @@ const getAllLightBooks=(callback)=> {
 };
 const getAllAuthors=(callback) => {
     let sql = 'SELECT * FROM author';
-    connection.query(sql, function (err, result) {
+    connection.query(sql, (err, result) => {
+        if (err) {
+            console.error(err.message);
+            return null;
+        }
+        return callback(result);
+    });
+};
+
+const getAuthorByPseudonym = (pseudonym, callback) => {
+    let sql = `SELECT * FROM author WHERE pseudonym = '${pseudonym}'`;
+    connection.query(sql, (err, result) => {
         if (err) {
             console.error(err.message);
             return null;
@@ -247,5 +269,5 @@ module.exports = {createDB, createAuthorsTable, createTransAuthorBook,
     
     createAuthorBookConnection, 
     deleteAuthorBookConnection, deleteAuthorBookAuthorConnection, deleteAuthorBookBookConnection, 
-    getBookAuthors, getBookAuthorConnections};
+    getBookAuthors, getBookAuthorConnections, getBookAuthorByAuthor, getAuthorByPseudonym};
 

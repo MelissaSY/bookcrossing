@@ -73,7 +73,9 @@ const saveChanges=(req, res)=> {
     } else if(oldBook !== null) {
         book.authors[0] = oldBook.authors;
     }
-
+    if(book.isbn.length !== 13 || isNaN(parseInt(book.isbn))){
+        book.isbn = '';
+    }
     library.editBookInfo(book);
     res.redirect('/books');
 };

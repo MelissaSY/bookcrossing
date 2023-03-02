@@ -57,8 +57,6 @@ const deleteBook=(req, res)=> {
     res.redirect('/books');
 };
 const deleteAuthor=(req, res)=> {
-    
-
     library.deleteAuthor(library.searchAuthorById(parseInt(req.body.id)));
     res.redirect('/authors');
 };

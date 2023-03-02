@@ -24,13 +24,13 @@
                             <%}%>
                             </div>
                             <div class="book_text_info">
-                                <input type="text" value="<%=author_selected%>" class="book_edit_field" list="authors_datalist" name="author" placeholder="Author">
+                                <input type="text" value="<%=author_selected%>" class="book_edit_field" list="authors_datalist" name="author" placeholder="Author" required>
                                 <datalist id="authors_datalist">
                                 <%for(let i =0; i < authors.length; i++) {%>
                                     <option value="<%=authors[i].pseudonym%>"></option>
                                 <%}%>
                                 </datalist>
-                                <input type="text" class="book_edit_field" placeholder="title" id="bookTitle" name="title" value="<%=book.title%>" />
+                                <input type="text" class="book_edit_field" placeholder="title" id="bookTitle" name="title" value="<%=book.title%>" required/>
                                 <input type="text" class="book_edit_field" placeholder="genres" id="bookGenres" name="genres" value="<%=book.genres%>" />
                                 <input type="text" class="book_edit_field" placeholder="ISBN"  id="bookIsbn" name="isbn" value="<%=book.isbn%>" />
                                 <button type="submit" name="save_changes" value="Save">Save</button>

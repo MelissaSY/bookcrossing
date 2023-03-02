@@ -278,3 +278,15 @@ select {
     display: flex;
     flex-direction: column;
 }
+
+.warning_window {
+
+    display: block;
+}
+
+.book_edit_field {
+    position: relative;
+}
+.book_edit_field span {
+    position: absolute;
+}
